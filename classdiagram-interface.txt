@@ -1,0 +1,73 @@
+classDiagram
+    %% Interfaces & Abstracts
+    class Info {
+        <<interface>>
+        +cetakInfo()
+    }
+
+    class Akun {
+        <<abstract>>
+        #String nama
+        #String role
+        +getNama()
+        +getRole()
+    }
+
+    %% Users
+    class Client {
+        +Client(nama)
+    }
+
+    class Freelancer {
+        +Freelancer(nama)
+        +prosesPesanan(Pesanan p, boolean terima)
+    }
+
+    %% Core Objects
+    class Jasa {
+        ~String namaJasa
+        ~double harga
+        +cetakInfo()
+    }
+
+    class Pesanan {
+        -Client client
+        -Jasa jasa
+        -String catatan
+        -String status
+        +setStatus(String status)
+        +cetakInfo()
+    }
+
+    %% Data & Helpers
+    class Database {
+        -static ArrayList~Jasa~ listJasa
+        -static ArrayList~Pesanan~ listPesananMasuk
+        +static initData()
+        +static getDaftarJasa()
+        +static getPesananMasuk()
+    }
+
+    class LoginSystem {
+        +static loginFlow() Akun
+    }
+
+    class Main {
+        +main()
+    }
+
+    %% Relationships
+    Akun <|-- Client : Inheritance
+    Akun <|-- Freelancer : Inheritance
+    Info <|.. Jasa : Implements
+    Info <|.. Pesanan : Implements
+    
+    Pesanan o-- Client : Aggregation
+    Pesanan o-- Jasa : Aggregation
+    
+    Database "1" *-- "*" Jasa : Composition
+    Database "1" *-- "*" Pesanan : Composition
+    
+    Main ..> LoginSystem : Uses
+    Main ..> Freelancer : Uses
+    Main ..> Client : Uses

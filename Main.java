@@ -165,7 +165,7 @@ class LoginSystem {
 // ==========================================
 // 6. MAIN PROGRAM (Alur Utama)
 // ==========================================
-public class AplikasiFreelance {
+public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
